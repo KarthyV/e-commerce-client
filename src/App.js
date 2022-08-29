@@ -1,6 +1,6 @@
 import "./styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
@@ -19,6 +19,7 @@ import { io } from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import { addNotification } from "./redux/actions/userAction";
 import ViewOrder from "./pages/ViewOrder";
+import NotFound from "./pages/404/NotFound";
 
 function App() {
   const { user } = useSelector((state) => state.user);
@@ -49,6 +50,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/products/:category" element={<AllProductPage />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<Navigate replace to="/404" />} />
           {!user?.isAdmin && (
             <>
               <Route path="/cart" element={<Cart />} />
